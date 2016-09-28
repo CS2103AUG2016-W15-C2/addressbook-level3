@@ -65,6 +65,21 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 
+## Favoriting a person : `favorite`
+Favorites the specified person in the address book. Irreversible.<br>
+Format: `favorite INDEX`
+
+> Favorites the person at the specified `INDEX`. 
+  The index refers to the index number shown in the most recent listing.
+
+Examples: 
+* `list`<br>
+  `favorite 2`<br>
+  Favorites the 2nd person in the address book.
+* `find Betsy`<br> 
+  `favorite 1`<br>
+  Favorite the 1st person in the results of the `find` command.
+
 ## View non-private details of a person : `view`
 Displays the non-private details of the specified person.<br>
 Format: `view INDEX`

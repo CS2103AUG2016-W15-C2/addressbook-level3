@@ -66,6 +66,9 @@ public class Parser {
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
+            case FavoriteCommand.COMMAND_WORD:
+                return prepareFavorite(arguments);
+
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
@@ -165,6 +168,22 @@ public class Parser {
             return new DeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+
+    /**
+     * Parses arguments in the context of the favorite person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFavorite(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new FavoriteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavoriteCommand.MESSAGE_USAGE));
         }
     }
 
