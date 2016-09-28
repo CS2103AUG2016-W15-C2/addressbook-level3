@@ -2,6 +2,7 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.tag.Tag;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -70,6 +71,9 @@ public class Parser {
 
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
+                
+            case FindTagsCommand.COMMAND_WORD:
+                return prepareFindTags(arguments);
             
             case FindEmailCommand.COMMAND_WORD:
                 return prepareFindEmail(arguments);
@@ -232,6 +236,33 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the find person using tags command.
+     * [LO-2KLoC] Add find person using tags command
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFindTags(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTagsCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Tag[] keytags = new Tag[keywords.length];
+        for (int i=0; i<keywords.length; i++){
+            try {
+                keytags[i] = new Tag(keywords[i]);
+            } catch (IllegalValueException e) {
+                // TODO Auto-generated catch block
+            }
+        }
+        final Set<Tag> keywordSet = new HashSet<>(Arrays.asList(keytags));
+        return new FindTagsCommand(keywordSet);
     }
     
     /*
