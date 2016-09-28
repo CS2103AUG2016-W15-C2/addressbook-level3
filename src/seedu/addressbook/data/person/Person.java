@@ -15,6 +15,8 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
 
+    private boolean isFavorite = false;
+
     private final UniqueTagList tags;
     /**
      * Assumption: Every field must be present and not null.
@@ -32,6 +34,16 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+    }
+
+    @Override
+    public boolean getIsFavorite() {
+        return favorite;
+    }
+
+    @Override
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     @Override
